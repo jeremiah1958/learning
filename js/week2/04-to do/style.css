@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #db3d3d;
   }
   .container {
     margin: 0 auto;
@@ -26,7 +26,7 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   .form button {
-    background-color: #3f51b5;
+    background-color: #202331;
     color: #fff;
     border: none;
     padding: 10px 20px;
