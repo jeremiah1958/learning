@@ -23,4 +23,4 @@ console.log(`result: ${result}`)
 
 }
 
-doOperation();
+doOperation();``
