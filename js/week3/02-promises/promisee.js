@@ -3,14 +3,20 @@ function getFile(myCallback) {
     req.open('GET', "../../week2/04-To-do/index.html");
     req.onload = function() {
       if (req.status == 200) {
-        myCallback(req.responseText);
+        resolve(req.responseText);
       } else {
-        myCallback("Error: " + req.status);
+        reject("File not Found");
       }
     }
     req.send();
   }
-  getFile(myDisplayer);
+  
+
+  myPromise.then(
+   function(value) {myDisplayer(value);},
+   function(error) {myDisplayer(error);}
+
+  );
   
 
   
