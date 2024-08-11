@@ -1,5 +1,9 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
-def helloworld(request):
-    return HttpResponse('Hello, my first Django app')
+def index(request):
+    context = {'message': 'Hello world', 'text':'Welcome to my page. Horaaaay!'}
+    return render(request, 'index.html', context)
+
+def about(request):
+    return render(request, 'about.html')
