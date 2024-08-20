@@ -82,10 +82,10 @@ if __name__ == "__main__":
     # bst.insert(6)
     # bst.insert(8)
     # bst.insert(10)
-    for i in range(13):
-        bst.insert(random.randint(0, 100))
+    for i in range(10):
+        bst.insert(random.randint(0, 20))
 
     print("original:", bst.nums)
     print("In-order traversal:", bst.inorder())
-    print("Search for 99:", bst.search(99))
+    print("Search for 5:", bst.search(5))
     print(f"Search for {bst.nums[5]}:", bst.search(bst.nums[5]))
