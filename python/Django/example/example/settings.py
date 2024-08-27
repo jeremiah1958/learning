@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,10 +30,28 @@ SECRET_KEY = 'django-insecure-xn*5bw%vk#b!+q-42%kig16snbp9o8y@9a=i89_ab3p#2pdbg$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
+
+AUTH_USER_MODEL = 'myapp.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'myapp.backends.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Default authentication backend
+]
+
+
+
+
+
+
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'cloudinary',
 ]
 
 STATIC_URL = '/static/'
@@ -57,20 +81,22 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'example.urls'
 
-
+cloudinary.config(
+    cloud_name = 'dhvavvtvy',
+    api_key = '278843988521672',
+    api_secret = 'fKY4hhv2mikBwtsmvFO9v16NvrI'
+)
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'myapp',
-        'USER' : 'postgres',
-        'PASSWORD' : 'Jeremiah1958',
-        'HOST' : 'localhost',
-        'PORT' : '5432'
-        
+        'ENGINE': config('DATABASE_ENGINE'),
+        'NAME':config('DATABASE_NAME'),
+        'USER':config('DATABASE_USER'),
+        'PASSWORD':config('DATABASE_PASSWORD'),
+        'HOST':config('DATABASE_HOST'),
+        'PORT':config('DATABASE_PORT'),
     }
-    
 }
 
 TEMPLATES = [
@@ -95,12 +121,12 @@ WSGI_APPLICATION = 'example.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#DATABASES = {
+    #'default': {
+     #   'ENGINE': 'django.db.backends.sqlite3',
+     #   'NAME': BASE_DIR / 'db.sqlite3',
+  #  }
+#}
 
 
 # Password validation
@@ -143,3 +169,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.example.com'  # Replace 'smtp.example.com' with your SMTP server hostname
+EMAIL_PORT = 587  # Replace '587' with your SMTP server port number
+EMAIL_HOST_USER = 'your_email@example.com'  # Replace 'your_email@example.com' with your email address
+EMAIL_HOST_PASSWORD = 'your_email_password'  # Replace 'your_email_password' with your email password
+EMAIL_USE_TLS = True  # Set it to 'True' if your SMTP server uses TLS encryption
