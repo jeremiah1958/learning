@@ -23,6 +23,7 @@ addTaskBtn.addEventListener("click", function() {
       const confirmationMessage = `Are you sure you want to remove the task: "${taskItem.innerText}"?`;
       if (confirm(confirmationMessage)) {
         taskItem.remove();
+        
       }
     });
 
