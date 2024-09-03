@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calorie Tracker</title>
+</head>
+<body>
+    <h1>Calorie Tracker</h1>
+    <h2>Total Calories: {{ total_calories }}</h2>
+    <ul>
+        {% for item in food_items %}
+            <li>{{ item.name }} - {{ item.calories }} cal 
+                <a href="{% url 'delete_food' item.id %}">Remove</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_food' %}">Add Food</a>
+    <a href="{% url 'reset_calories' %}">Reset Calories</a>
+</body>
+</html>
