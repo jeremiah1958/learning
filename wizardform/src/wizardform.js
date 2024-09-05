@@ -1,8 +1,8 @@
 // src/components/WizardForm.js
 import React, { useState } from 'react';
-import Step1 from './step1';
-import Step2 from './step2';
-import Step3 from './step3';
+import Step1 from './personalinfo';
+import Step2 from './contact';
+import Step3 from './review';
 
 const WizardForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
