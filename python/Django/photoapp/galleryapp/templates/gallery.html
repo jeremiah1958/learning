@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Photo Gallery</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5 text-center">Photo Gallery</h2>
+
+        <!-- Profile Link -->
+        <div class="text-center my-4">
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Go to Profile</a>
+        </div>
+
+        <!-- Filter Form -->
+        <form method="GET" action="" class="form-inline my-4 justify-content-center">
+            <input type="text" name="q" class="form-control mr-2" placeholder="Filter by title" value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
+        <div class="row mt-4">
+            {% for photo in photos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.title }}</h5>
+                        <p class="card-text">{{ photo.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
