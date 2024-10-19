@@ -30,8 +30,8 @@ const IrrigationSystem = () => {
   }, []);
 
   const handleAddIrrigationSystem = async (event) => {
-    event.preventDefault(); // Prevent form submission default behavior
-    console.log(typeof newLastInspectionDate);
+    event.preventDefault(); 
+
     try {
       const response = await fetch('http://127.0.0.1:8000/api/add-irrigation-system/', {
         method: 'POST',
@@ -47,14 +47,13 @@ const IrrigationSystem = () => {
       });
 
       if (!response.ok) {
-        console.log(response.status)
         throw new Error(`Failed to add irrigation system: ${response.status}`);
       }
 
       const result = await response.json();
       alert('Irrigation system added successfully!');
 
-      // Refresh the data after adding
+      
       const fetchUpdatedData = await fetch('http://127.0.0.1:8000/api/irrigation-system/');
       const updatedData = await fetchUpdatedData.json();
       setIrrigationData(updatedData);
@@ -72,9 +71,9 @@ const IrrigationSystem = () => {
     <div>
       <h1>Irrigation System</h1>
       {irrigationData.length > 0 ? (
-        irrigationData.map((system) => (
+        irrigationData.map((system, index) => (
           <div key={system.id}>
-            <p>Type: {system.type}</p>
+            <p>{index + 1}. Type: {system.type}</p>
             <p>Details: {system.details}</p>
             <p>Status: {system.status === 'on' ? 'On' : 'Off'}</p>
             <p>Last Inspection Date: {system.last_inspection_date}</p>

@@ -13,7 +13,7 @@ urlpatterns = [
     path('api/harvests/', get_harvest, name="get_harvests"),
     path('api/harvests-add/', add_harvest, name='add-harvest'),
     path('api/medicines/', get_medicines, name='get_medicines'),
-    path('api/medicines-add/', add_medicine, name='add_medicine'),  # New URL for adding medicines
+    path('api/medicines-add/', add_medicine, name='add_medicine'),  
     path('api/irrigation-system/', irrigation_system_view, name='irrigation-system'),
     path('api/add-irrigation-system/', add_irrigation_system, name='add-irrigation-system'),
 

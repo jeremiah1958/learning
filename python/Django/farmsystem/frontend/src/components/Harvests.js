@@ -50,7 +50,7 @@ const Harvests = () => {
       }
 
       const newHarvest = await response.json();
-      setHarvests([...harvests, newHarvest]); // Add the new harvest to the list
+      setHarvests([...harvests, newHarvest]); 
       setCropName('');
       setQuantity('');
       setDate('');
@@ -70,7 +70,7 @@ const Harvests = () => {
     <div>
       <h1>Harvests</h1>
 
-      {/* Add new harvest form */}
+      {}
       <form onSubmit={handleAddHarvest}>
         <div>
           <label htmlFor="cropName">Crop Name:</label>
@@ -105,14 +105,14 @@ const Harvests = () => {
         <button type="submit">Add Harvest</button>
       </form>
 
-      {/* Show success message if harvest is added */}
+      {}
       {successMessage && <p>{successMessage}</p>}
 
-      {/* Display list of harvests */}
+      {}
       <ul>
         {harvests.map((harvest, index) => (
           <li key={index}>
-            {harvest.crop_name} - {harvest.quantity} - {harvest.date}
+            {index + 1}. {harvest.crop_name} - {harvest.quantity} - {harvest.date}
           </li>
         ))}
       </ul>

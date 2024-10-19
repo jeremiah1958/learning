@@ -73,9 +73,9 @@ const Medicines = () => {
     <div>
       <h1>Medicines</h1>
       <ul>
-        {medicines.map((medicine) => (
+        {medicines.map((medicine, index) => (
           <li key={medicine.id}>
-            {medicine.name} - {medicine.description} - {medicine.application_date} - {medicine.quantity}
+            {index + 1}. {medicine.name} - {medicine.description} - {medicine.application_date} - {medicine.quantity}
           </li>
         ))}
       </ul>

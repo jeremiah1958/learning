@@ -10,7 +10,7 @@ const Plants = () => {
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState(null);
 
-  // Fetch plants from the database
+  
   useEffect(() => {
     const fetchPlants = async () => {
       try {
@@ -33,7 +33,7 @@ const Plants = () => {
     fetchPlants();
   }, []);
 
-  // Function to handle form submission
+  
   const handleAddPlant = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -59,8 +59,8 @@ const Plants = () => {
       }
 
       const newPlant = await response.json();
-      setPlants([...plants, newPlant]); // Add the new plant to the list
-      setName(''); // Reset the form fields
+      setPlants([...plants, newPlant]); 
+      setName(''); 
       setHarvestDate('');
       setPlantDate('');
       setQuantity('');
@@ -73,17 +73,17 @@ const Plants = () => {
     }
   };
 
-  // If there's an error, show the error message
+  
   if (error) return <div>{error}</div>;
 
-  // Show a loading message until the data is fetched
+  
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <h1>Plants</h1>
 
-      {/* Add new plant form */}
+      {}
       <form onSubmit={handleAddPlant}>
         <div>
           <label htmlFor="name">Plant Name:</label>
@@ -128,14 +128,14 @@ const Plants = () => {
         <button type="submit">Add Plant</button>
       </form>
 
-      {/* Show success message if plant is added */}
+      {}
       {successMessage && <p>{successMessage}</p>}
 
-      {/* Display list of plants */}
+      {}
       <ul>
         {plants.map((plant, index) => (
           <li key={index}>
-            {plant.name} - {plant.expected_harvest_date}
+           {index + 1}. {plant.name} - {plant.expected_harvest_date}
           </li>
         ))}
       </ul>

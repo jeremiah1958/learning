@@ -61,7 +61,7 @@ const Farmers = () => {
     <div>
       <h1>Farmers</h1>
 
-      {/* Add new farmer form */}
+      {}
       <form onSubmit={handleAddFarmer}>
         <div>
           <label htmlFor="name">Name:</label>
@@ -95,14 +95,14 @@ const Farmers = () => {
         <button type="submit">Add Farmer</button>
       </form>
 
-      {/* Show success message if farmer is added */}
+      {}
       {successMessage && <p>{successMessage}</p>}
 
-      {/* Display list of farmers */}
+      {}
       <ul>
         {farmers.map((farmer, index) => (
           <li key={index}>
-            {farmer.name} - Contact: {farmer.contact_info} - Location: {farmer.location}
+            {index + 1}. {farmer.name} - Contact: {farmer.contact_info} - Location: {farmer.location}
           </li>
         ))}
       </ul>

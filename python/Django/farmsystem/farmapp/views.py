@@ -6,6 +6,12 @@ import json
 from .models import FinancialRecord, Plant, Farmer, Harvest, Medicine, IrrigationSystem
 from django.db.models import Sum
 from datetime import datetime
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.dateparse import parse_date
+from .models import FinancialRecord  
+import json
+
 
 
 def financial_summary(request):
@@ -24,8 +30,15 @@ def financial_summary(request):
     return JsonResponse(financial_data)
 
 def home(request):
-    return HttpResponse("Welcome to Blessed Farm")
-
+    return HttpResponse("""
+        <h1>Welcome to Garden Of Abudant Delight Farm Nanyuki</h1>
+        <p>Owned by the Onyiegos, nestled at the foot of Mount Kenya, our farm offers a serene getaway with lush landscapes, diverse crops, and various animals.</p>
+        <p>Visitors can enjoy fresh produce, farm tours, and participate in activities like harvesting and animal care.</p>
+        <p>Explore nearby attractions such as Mount Kenya National Park and Ol Pejeta Conservancy for exciting adventures.</p>
+        <p>Join us for local events like the Nanyuki Agricultural Show and Craft Fair, celebrating our vibrant community.</p>
+        <p>Whether you seek relaxation, farm-to-table meals, or a chance to connect with the Onyiego family and locals, Blessed Farm Nanyuki has something for everyone.</p>
+        <p>Come and discover the beauty and stories that make our farm and its surroundings truly special!</p>
+    """)
 
 def get_farm_info(request):
     farm_data = {
@@ -110,24 +123,30 @@ def add_farmer(request):
 @csrf_exempt
 def add_harvest(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        crop_name = data.get('crop_name')
-        quantity = data.get('quantity')
-        date = data.get('date')
+        try:
+            data = json.loads(request.body)
+            crop_name = data.get('crop_name')
+            quantity = data.get('quantity')
+            date = data.get('date')
+            
+            print(f"{data=}")
+            
+            plant = Plant.objects.get(name=crop_name)  
 
-        
-        plant = Plant.objects.get(name=crop_name)  
-
-        harvest = Harvest.objects.create(plant=plant, harvest_date=date, quantity_harvested=quantity)
+            harvest = Harvest.objects.create(plant=plant, harvest_date=date, quantity_harvested=quantity)
+            
+        except:
+            pass
         
         return JsonResponse({
-            'id': harvest.id,
-            'crop_name': crop_name,
-            'quantity': quantity,
-            'date': date
-        })
+        'id': harvest.id,
+        'crop_name': crop_name,
+        'quantity': quantity,
+        'date': date
+    })
     else:
         return JsonResponse({'error': 'Invalid request'}, status=400)
+                
 
 
 def get_harvest(request):
@@ -177,7 +196,7 @@ def add_medicine(request):
             if not name or not description or not application_date or quantity is None:
                 return JsonResponse({'error': 'All fields are required.'}, status=400)
 
-            # Validate date format
+            
             try:
                 application_date = datetime.strptime(application_date, '%Y-%m-%d').date()
             except ValueError:
@@ -236,7 +255,7 @@ def add_irrigation_system(request):
             
             IrrigationSystem.objects.create(
                 system_name=irrigation_type,
-                # details=irrigation_details,
+                
                 status=irrigation_status,
                 last_inspection_date=last_inspection_date
             )
@@ -252,27 +271,23 @@ def add_irrigation_system(request):
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.dateparse import parse_date
-from .models import FinancialRecord  # Import your model
-import json
+
 
 @csrf_exempt
 def add_financial_record(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)  # Parse the incoming JSON
+            data = json.loads(request.body)  
             description = data.get('description')
             amount = data.get('amount')
             date = parse_date(data.get('date'))
             type_of_record = data.get('type')
             
-            # Validate data
+            
             if not (description and amount and date and type_of_record):
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
             
-            # Save record
+        
             FinancialRecord.objects.create(
                 description=description,
                 amount=amount,

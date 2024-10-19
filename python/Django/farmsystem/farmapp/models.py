@@ -13,7 +13,7 @@ class Plant(models.Model):
     name = models.CharField(max_length=100)
     planting_date = models.DateField()
     expected_harvest_date = models.DateField()
-    quantity = models.PositiveIntegerField()  # in kg
+    quantity = models.PositiveIntegerField()  
     is_harvested = models.BooleanField(default=False)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Plant(models.Model):
 class Harvest(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     harvest_date = models.DateField()
-    quantity_harvested = models.PositiveIntegerField()  # in kg
+    quantity_harvested = models.PositiveIntegerField()  
 
     def __str__(self):
         return f"Harvest of {self.plant.name} on {self.harvest_date}"
@@ -31,7 +31,7 @@ class Medicine(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     application_date = models.DateField()
-    quantity = models.PositiveIntegerField()  # in ml or g
+    quantity = models.PositiveIntegerField()  
 
     def __str__(self):
         return self.name
