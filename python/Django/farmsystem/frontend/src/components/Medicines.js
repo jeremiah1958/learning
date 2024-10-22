@@ -70,67 +70,81 @@ const Medicines = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Medicines</h1>
-      <ul>
+    <div className="max-w-md mx-auto p-4">
+      <h1 className="text-xl font-bold mb-4">Medicines</h1>
+      
+      {}
+      <ul className="space-y-2 mb-4">
         {medicines.map((medicine, index) => (
-          <li key={medicine.id}>
-            {index + 1}. {medicine.name} - {medicine.description} - {medicine.application_date} - {medicine.quantity}
+          <li key={medicine.id} className="bg-gray-100 p-2 rounded-lg shadow-sm">
+            {index + 1}. <span className="font-semibold">{medicine.name}</span> - {medicine.description} - {medicine.application_date} - Quantity: {medicine.quantity}
           </li>
         ))}
       </ul>
 
-      <button onClick={() => setShowForm(!showForm)}>
+      {}
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4"
+        onClick={() => setShowForm(!showForm)}
+      >
         {showForm ? 'Cancel' : 'Add Medicine'}
       </button>
 
+      {}
       {showForm && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
-          </label>
-          <br />
-          <label>
-            Description:
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Description</label>
             <input
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
-          </label>
-          <br />
-          <label>
-            Application Date (YYYY-MM-DD):
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Application Date (YYYY-MM-DD)</label>
             <input
               type="date"
               value={applicationDate}
               onChange={(e) => setApplicationDate(e.target.value)}
               required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
-          </label>
-          <br />
-          <label>
-            Quantity:
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Quantity</label>
             <input
               type="number"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
-          </label>
-          <br />
-          <button type="submit">Add Medicine</button>
+          </div>
+
+          <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">
+            Add Medicine
+          </button>
         </form>
       )}
 
-      {success && <div>{success}</div>}
+      {}
+      {success && <div className="mt-4 text-green-600">{success}</div>}
     </div>
   );
 };

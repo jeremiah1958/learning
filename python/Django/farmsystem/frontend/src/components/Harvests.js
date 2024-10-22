@@ -67,52 +67,55 @@ const Harvests = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Harvests</h1>
+    <div className="max-w-md mx-auto p-4">
+      <h1 className="text-xl font-bold mb-4">Harvests</h1>
 
       {}
-      <form onSubmit={handleAddHarvest}>
+      <form onSubmit={handleAddHarvest} className="space-y-3">
         <div>
-          <label htmlFor="cropName">Crop Name:</label>
+          <label htmlFor="cropName" className="block text-sm font-medium text-gray-700">Crop Name</label>
           <input
             type="text"
             id="cropName"
             value={cropName}
             onChange={(e) => setCropName(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="quantity">Quantity:</label>
+          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
           <input
             type="number"
             id="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="date">Date:</label>
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
           <input
             type="date"
             id="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
-        <button type="submit">Add Harvest</button>
+        <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Add Harvest</button>
       </form>
 
       {}
-      {successMessage && <p>{successMessage}</p>}
+      {successMessage && <p className="text-green-600 mt-3">{successMessage}</p>}
 
       {}
-      <ul>
+      <ul className="mt-4 space-y-2">
         {harvests.map((harvest, index) => (
-          <li key={index}>
-            {index + 1}. {harvest.crop_name} - {harvest.quantity} - {harvest.date}
+          <li key={index} className="bg-gray-100 p-2 rounded-lg shadow-sm">
+            {index + 1}. {harvest.crop_name} - Quantity: {harvest.quantity} - Date: {harvest.date}
           </li>
         ))}
       </ul>

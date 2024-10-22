@@ -10,7 +10,6 @@ const Plants = () => {
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState(null);
 
-  
   useEffect(() => {
     const fetchPlants = async () => {
       try {
@@ -33,7 +32,6 @@ const Plants = () => {
     fetchPlants();
   }, []);
 
-  
   const handleAddPlant = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -73,69 +71,76 @@ const Plants = () => {
     }
   };
 
-  
   if (error) return <div>{error}</div>;
-
-  
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Plants</h1>
-
+    <div className="max-w-md mx-auto p-4">
+      <h1 className="text-xl font-bold mb-4">Plants</h1>
+<div>
+  
+</div>
       {}
-      <form onSubmit={handleAddPlant}>
+      <form onSubmit={handleAddPlant} className="bg-white p-4 rounded-lg shadow-md space-y-3 mb-4">
         <div>
-          <label htmlFor="name">Plant Name:</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Plant Name:</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="quantity">Quantity:</label>
+          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity:</label>
           <input
             type="text"
             id="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
+            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="harvestDate">Expected Harvest Date:</label>
+          <label htmlFor="harvestDate" className="block text-sm font-medium text-gray-700">Expected Harvest Date:</label>
           <input
             type="date"
             id="harvestDate"
             value={harvestDate}
             onChange={(e) => setHarvestDate(e.target.value)}
             required
+            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="plantDate">Planting Date:</label>
+          <label htmlFor="plantDate" className="block text-sm font-medium text-gray-700">Planting Date:</label>
           <input
             type="date"
             id="plantDate"
             value={plantDate}
             onChange={(e) => setPlantDate(e.target.value)}
             required
+            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
-        <button type="submit">Add Plant</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-full text-sm"
+        >
+          Add Plant
+        </button>
       </form>
 
-      {}
-      {successMessage && <p>{successMessage}</p>}
+      {successMessage && <p className="text-green-500 mt-4 text-sm">{successMessage}</p>}
 
       {}
-      <ul>
+      <ul className="mt-4 space-y-1">
         {plants.map((plant, index) => (
-          <li key={index}>
-           {index + 1}. {plant.name} - {plant.expected_harvest_date}
+          <li key={plant.id} className="bg-gray-100 p-2 rounded-lg shadow-sm text-sm">
+            {index + 1}. {plant.name} (Planted on: {plant.plant_date})
           </li>
         ))}
       </ul>

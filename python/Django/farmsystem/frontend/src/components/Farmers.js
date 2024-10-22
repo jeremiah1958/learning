@@ -58,50 +58,58 @@ const Farmers = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Farmers</h1>
+    <div className="max-w-md mx-auto p-4">
+      <h1 className="text-xl font-bold mb-4">Farmers</h1>
 
-      {}
-      <form onSubmit={handleAddFarmer}>
+      {/* Form */}
+      <form onSubmit={handleAddFarmer} className="space-y-3">
         <div>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="contactInfo">Contact Info:</label>
+          <label htmlFor="contactInfo" className="block text-sm font-medium text-gray-700">Contact Info:</label>
           <textarea
             id="contactInfo"
             value={contactInfo}
             onChange={(e) => setContactInfo(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
         <div>
-          <label htmlFor="location">Location:</label>
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location:</label>
           <input
             type="text"
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
           />
         </div>
-        <button type="submit">Add Farmer</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Add Farmer
+        </button>
       </form>
 
       {}
-      {successMessage && <p>{successMessage}</p>}
+      {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
 
       {}
-      <ul>
+      <ul className="mt-4 space-y-1">
         {farmers.map((farmer, index) => (
-          <li key={index}>
+          <li key={index} className="bg-gray-100 p-2 rounded-lg shadow-sm">
             {index + 1}. {farmer.name} - Contact: {farmer.contact_info} - Location: {farmer.location}
           </li>
         ))}

@@ -9,6 +9,8 @@ import FinancialRecords from './components/FinancialRecords.js';
 import Harvests from './components/Harvests'; 
 import Medicines from './components/Medicines'; 
 
+
+
 const App = () => {
   return (
     <Router>
@@ -17,7 +19,7 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<FarmInfo />} />
-            <Route path="/plants" element={<Plants />} />
+            <Route path="/plants" element={<Plants/>} />
             <Route path="/irrigation" element={<IrrigationSystem />} />
             <Route path="/farmers" element={<Farmers />} /> {}
             <Route path="/financial-records" element={<FinancialRecords />} /> {}
@@ -39,3 +41,5 @@ const App = () => {
 };
 
 export default App;
+
+

@@ -15,8 +15,10 @@ const Navbar = () => {
       </ul>
       <style jsx>{`
         nav {
-          background-color: #333;
+          background: linear-gradient(120deg, #4CAF50, #8BC34A); /* Green field colors */
           padding: 1em;
+          border-bottom: 3px solid #2E7D32; /* Darker green for a farming feel */
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         ul {
           list-style: none;
@@ -30,9 +32,16 @@ const Navbar = () => {
         a {
           color: white;
           text-decoration: none;
+          font-weight: bold;
+          font-family: 'Arial', sans-serif;
         }
         a:hover {
           text-decoration: underline;
+        }
+        /* Add a subtle grass texture background to the body */
+        body {
+          background-image: url('https://www.transparenttextures.com/patterns/grass.png'); /* Subtle grass texture */
+          background-color: #F1F8E9; /* Light green background */
         }
       `}</style>
     </nav>
