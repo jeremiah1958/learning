@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import home, get_farm_info, financial_summary, get_plants, add_plant, get_farmers, add_farmer, get_harvest, add_harvest,  get_medicines, add_medicine, irrigation_system_view, add_irrigation_system, add_financial_record
+from . import views
 
 urlpatterns = [
     path('', home, name='home'),
@@ -16,6 +17,8 @@ urlpatterns = [
     path('api/medicines-add/', add_medicine, name='add_medicine'),  
     path('api/irrigation-system/', irrigation_system_view, name='irrigation-system'),
     path('api/add-irrigation-system/', add_irrigation_system, name='add-irrigation-system'),
+    path('api/login/', views.handle_login),
+    path("api/signup/", views.handle_signup)
 
 ]
 

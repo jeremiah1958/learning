@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.dateparse import parse_date
-import json
+from django.contrib.auth import authenticate, login
 from .models import FinancialRecord, Plant, Farmer, Harvest, Medicine, IrrigationSystem
 from django.db.models import Sum
 from datetime import datetime
@@ -11,6 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.dateparse import parse_date
 from .models import FinancialRecord  
 import json
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -302,4 +305,80 @@ def add_financial_record(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+
+
+
+
+
+@csrf_exempt
+def handle_signup(request):
+    if request.method == 'POST':
+        try:
+            print("data has been received")
+            # Parse JSON data from the request body
+            data = json.loads(request.body)
+            username = data.get('email')  # Assuming 'email' is used as username
+            password = data.get('password')
+            
+            print(data)
+
+            # Validate that all fields are present
+            if not username or not password:
+                return JsonResponse({'status': 400, 'message': 'All fields are required'})
+
+            # # Validate that the passwords match
+            # if password != confirm_password:
+            #     return JsonResponse({'status': 400, 'message': 'Passwords do not match'})
+
+            # Check if the username (email) is already taken
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({'status': 400, 'message': 'Username is already taken'})
+
+            # Create and save the new user with a hashed password
+            print("trying to create user")
+            user = User.objects.create(
+                username=username,
+                email=username,
+                password=make_password(password)  # Hash the password before saving
+            )
+            user.save()
+
+            # Return success response
+            return JsonResponse({'status': 201, 'message': 'User created successfully'}, status=201)
+        
+        except Exception as e:
+            print(e)
+            return JsonResponse({'status': 400, 'message': 'Invalid JSON data'})
+
+    return JsonResponse({'status': 405, 'message': 'Method not allowed'}, status=405)
+
+    
+@csrf_exempt
+def handle_login(request):
+    if request.method == "POST":
+        try:
+            print("data received")
+            data = json.loads(request.body)
+            username = data.get('email')
+            password = data.get('password')
+            print(data)
+
+            # Check if both fields are provided
+            if not username or not password:
+                return JsonResponse({"error": "Username and password are required."}, status=400)
+
+            # Authenticate the user
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                # Log the user in
+                login(request, user)
+                print("logged in")
+                return JsonResponse({"message": "Login successful"}, status=200)
+            else:
+                return JsonResponse({"error": "Invalid credentials"}, status=401)
+        except Exception as e:
+            return JsonResponse({"error": f"{e}"}, status=400)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
 

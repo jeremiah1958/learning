@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import {UserContext} from '../UserContext'
 
 const Plants = () => {
+  const {isAuthenticated} = useContext(UserContext)
   const [plants, setPlants] = useState([]);
   const [name, setName] = useState('');
   const [harvestDate, setHarvestDate] = useState('');
@@ -11,6 +13,7 @@ const Plants = () => {
   const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
+  
     const fetchPlants = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/plants/");
@@ -28,8 +31,10 @@ const Plants = () => {
         console.error('Error fetching data:', err.message);
       }
     };
-
-    fetchPlants();
+    
+      fetchPlants();
+    
+   
   }, []);
 
   const handleAddPlant = async (e) => {
@@ -39,6 +44,9 @@ const Plants = () => {
     setSuccessMessage(null);
 
     try {
+      if (isAuthenticated){
+        return
+      }
       const response = await fetch('http://127.0.0.1:8000/api/plants-add/', {
         method: 'POST',
         headers: {
@@ -77,7 +85,7 @@ const Plants = () => {
   return (
     <div className="min-h-screen bg-green-50 p-4">
       <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg border border-green-200">
-        <h1 className="text-2xl font-bold mb-4 text-green-800 text-center">Plants</h1>
+        <h1 className="text-2xl font-bold mb-4 text-green-800 text-center">Plants <i class="bi bi-tree-fill"></i></h1>
         <form onSubmit={handleAddPlant} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Plant Name:</label>
